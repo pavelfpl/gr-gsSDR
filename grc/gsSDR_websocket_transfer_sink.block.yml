@@ -1,0 +1,81 @@
+id: gsSDR_websocket_transfer_sink
+label: websocket_transfer_sink
+category: '[gsSDR]'
+
+templates:
+  imports: import gsSDR
+  make: gsSDR.websocket_transfer_sink(${ServerName}, ${ServerPort}, ${stationId}, ${UserName}, ${UserPass})
+
+parameters:  
+-   id: ServerName
+    label: ServerName
+    dtype: string
+    default: '178.128.160.180'  
+-   id: ServerPort
+    label: ServerPort
+    dtype: string
+    default: '8002'  
+-   id: stationId
+    label: StationId
+    dtype: int
+    default: 0
+-   id: UserName
+    label: UserName
+    dtype: string
+    default: ''   
+-   id: UserPass
+    label: UserPass
+    dtype: string
+    default: ''   
+    
+inputs:
+-   domain: message
+    id: in  
+  
+#  Make one 'parameters' list entry for every parameter you want settable from the GUI.
+#     Keys include:
+#     * id (makes the value accessible as \$keyname, e.g. in the make entry)
+#     * label (label shown in the GUI)
+#     * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+# parameters:
+# - id: ...
+#   label: ...
+#   dtype: ...
+# - id: ...
+#   label: ...
+#   dtype: ...
+
+#  Make one 'inputs' list entry per input and one 'outputs' list entry per output.
+#  Keys include:
+#      * label (an identifier for the GUI)
+#      * domain (optional - stream or message. Default is stream)
+#      * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+#      * vlen (optional - data stream vector length. Default is 1)
+#      * optional (optional - set to 1 for optional inputs. Default is 0)
+# inputs:
+#  - label: ...
+#  domain: ...
+#  dtype: ...
+#  vlen: ...
+#  optional: ...
+
+# outputs:
+#  - label: ...
+#  domain: ...
+#  dtype: ...
+#  vlen: ...
+#  optional: ...
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+
+
+documentation: |-
+    This block provides JSON websocket transmission capabilities to the server (source)
+    Parameters:
+    ServerName: IP address or DNS server name - eg. 178.128.160.180
+    ServerPort: server port - eg. 8002
+    StationId: id of station - integer
+    UserName: user name - optional parameter
+    UserPass: user password - optional parameter
+file_format: 1
