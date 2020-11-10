@@ -52,4 +52,4 @@ sudo ldconfig
 
 - websocket_transfer_sink with gr-satellites blocks: https://github.com/daniestevez/gr-satellites/
 
-![Example Source](https://github.com/pavelfpl/gr-gsSDR/examples/screenshots/websocket_transfer_sink_example.png)
+![Example Source](https://github.com/pavelfpl/gr-gsSDR/examples/websocket_transfer_sink_example.png)
