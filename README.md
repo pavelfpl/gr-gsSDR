@@ -48,3 +48,8 @@ make install
 
 sudo ldconfig
 
+## Screenshots
+
+- websocket_transfer_sink with gr-satellites blocks: https://github.com/daniestevez/gr-satellites/
+
+![Example Source](https://github.com/pavelfpl/gr-gsSDR/blob/master/screenshots/websocket_transfer_sink_example.png)
