@@ -4,8 +4,11 @@ GNURadio blocks for distibuted small satellites Ground Station, written in C++ w
 For Debian and Ubuntu install:
 
 sudo apt install libboost-system-dev
+
 sudo apt install libboost-beast
+
 sudo apt install libboost
+
 sudo apt install libboost-asio
 
 ## Building
@@ -30,8 +33,11 @@ sudo ldconfig
 Gnuradio 3.8.x is installed to $HOME/gr3.8 using PyBombs:
 
 cd gr3.8
+
 source setup_env.sh 
+
 cd ..
+
 cd gr-gsSDR
 
 mkdir build && cd build
