@@ -1,6 +1,6 @@
 
 # gr-gsSDR
-GNURadio blocks for distibuted pico **satellites Ground Station**, written in **C++** with Boost.
+GNURadio blocks for distributed pico **satellites Ground Station**, written in **C++** with Boost.
 
 >For **Debian and Ubuntu** install:
 
