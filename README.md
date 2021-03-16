@@ -4,10 +4,10 @@ GNURadio blocks for distributed pico **satellites Ground Station**, written in *
 
 >For **Debian and Ubuntu** install:
 
-`sudo apt install libboost-system-dev`
-`sudo apt install libboost-beast`
-`sudo apt install libboost`
-`sudo apt install libboost-asio`
+`sudo apt install libboost-system-dev`  
+`sudo apt install libboost-beast`  
+`sudo apt install libboost`  
+`sudo apt install libboost-asio`  
 
 ## Building
 >This module requires **Gnuradio 3.8.x** and `Boost`.
