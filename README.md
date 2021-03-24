@@ -7,7 +7,7 @@ GNURadio blocks for distributed pico **satellites Ground Station**, written in *
 `sudo apt install libboost-system-dev`  
 `sudo apt install libboost-beast`  
 `sudo apt install libboost`  
-`sudo apt install libboost-asio`
+`sudo apt install libboost-asio`  
 `sudo apt install libssl-dev`
 
 ## Building
