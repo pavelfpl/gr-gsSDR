@@ -9,7 +9,13 @@
 
 %{
 #include "gsSDR/websocket_transfer_sink.h"
+#include "gsSDR/http_transfer_sink.h"
+#include "gsSDR/http_transfer_source.h"
 %}
 
 %include "gsSDR/websocket_transfer_sink.h"
 GR_SWIG_BLOCK_MAGIC2(gsSDR, websocket_transfer_sink);
+%include "gsSDR/http_transfer_sink.h"
+GR_SWIG_BLOCK_MAGIC2(gsSDR, http_transfer_sink);
+%include "gsSDR/http_transfer_source.h"
+GR_SWIG_BLOCK_MAGIC2(gsSDR, http_transfer_source);

@@ -27,7 +27,7 @@ options:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 8]
+    coordinate: [8, 12.0]
     rotation: 0
     state: enabled
 
@@ -57,6 +57,19 @@ blocks:
     coordinate: [856, 16.0]
     rotation: 0
     state: enabled
+- name: blocks_message_debug_0_0
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [240, 248.0]
+    rotation: 0
+    state: true
 - name: blocks_throttle_0
   id: blocks_throttle
   parameters:
@@ -73,16 +86,16 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [256, 44.0]
+    coordinate: [240, 28.0]
     rotation: 0
-    state: bypassed
+    state: enabled
 - name: blocks_wavfile_source_0
   id: blocks_wavfile_source
   parameters:
     affinity: ''
     alias: ''
     comment: ''
-    file: /home/pavelf/satellites_record/example_records/lucky_7.wav
+    file: /home/pavelf/gnuradio_addons_3.8/gr-gsSDR/grc_records/example_records/lucky_7.wav
     maxoutbuf: '0'
     minoutbuf: '0'
     nchan: '1'
@@ -94,22 +107,46 @@ blocks:
     coordinate: [8, 92.0]
     rotation: 0
     state: enabled
-- name: gsSDR_websocket_transfer_sink_1
-  id: gsSDR_websocket_transfer_sink
+- name: gsSDR_http_transfer_sink_0
+  id: gsSDR_http_transfer_sink
   parameters:
-    ServerName: 178.128.160.180
-    ServerPort: '8002'
+    ServerName: localhost
+    ServerPort: '8080'
+    ServerTarget: /gs/tm
     UserName: ''
     UserPass: ''
     affinity: ''
     alias: ''
     comment: ''
-    stationId: '0'
+    spacecraftId: '4461'
+    stationId: '10'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
     coordinate: [856, 124.0]
+    rotation: 0
+    state: true
+- name: gsSDR_http_transfer_source_0
+  id: gsSDR_http_transfer_source
+  parameters:
+    ServerName: localhost
+    ServerPort: '8080'
+    ServerTarget: /gs/tc
+    UserName: ''
+    UserPass: ''
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    spacecraftId: '0'
+    stationId: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 220.0]
     rotation: 0
     state: true
 - name: satellites_fsk_demodulator_0
@@ -129,7 +166,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [416, 116.0]
+    coordinate: [400, 92.0]
     rotation: 0
     state: enabled
 - name: satellites_lucky7_deframer_0
@@ -146,16 +183,17 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [576, 44.0]
+    coordinate: [600, 28.0]
     rotation: 0
     state: enabled
 
 connections:
 - [blocks_throttle_0, '0', satellites_fsk_demodulator_0, '0']
 - [blocks_wavfile_source_0, '0', blocks_throttle_0, '0']
+- [gsSDR_http_transfer_source_0, out, blocks_message_debug_0_0, print_pdu]
 - [satellites_fsk_demodulator_0, '0', satellites_lucky7_deframer_0, '0']
 - [satellites_lucky7_deframer_0, out, blocks_message_debug_0, print_pdu]
-- [satellites_lucky7_deframer_0, out, gsSDR_websocket_transfer_sink_1, in]
+- [satellites_lucky7_deframer_0, out, gsSDR_http_transfer_sink_0, in]
 
 metadata:
   file_format: 1

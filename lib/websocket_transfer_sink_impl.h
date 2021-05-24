@@ -38,6 +38,7 @@ namespace gr {
      std::string m_ServerName;
      std::string m_ServerPort;
      int m_stationId;
+     int m_spacecraftId;
      std::string m_UserName;
      std::string m_UserPass;
      
@@ -49,7 +50,7 @@ namespace gr {
      void threadTransferDeInit();
 
      public:
-      websocket_transfer_sink_impl(const std::string &ServerName, const std::string &ServerPort, int stationId, const std::string &UserName, const std::string &UserPass);
+      websocket_transfer_sink_impl(const std::string &ServerName, const std::string &ServerPort, int stationId, int spacecraftId, const std::string &UserName, const std::string &UserPass);
       ~websocket_transfer_sink_impl();
 
       // Where all the action really happens ...

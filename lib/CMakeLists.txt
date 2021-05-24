@@ -26,6 +26,8 @@ include(GrPlatform) #define LIB_SUFFIX
 list(APPEND gsSDR_sources
     fifo_buffer.cc
     websocket_transfer_sink_impl.cc
+    http_transfer_sink_impl.cc
+    http_transfer_source_impl.cc
 )
 
 set(gsSDR_sources "${gsSDR_sources}" PARENT_SCOPE)

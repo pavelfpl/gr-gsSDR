@@ -1,6 +1,6 @@
 
 # gr-gsSDR
-GNURadio blocks for distributed pico **satellites Ground Station**, written in **C++** with Boost.
+GNURadio blocks for distributed pico **satellites Ground Station**, written in **C++** with Boost. 
 
 >For **Debian and Ubuntu** install:
 
@@ -36,8 +36,17 @@ cmake ../ -Wno-dev -DCMAKE_INSTALL_PREFIX=~/gr3.8
 make install
 sudo ldconfig
 ```
+
+## Blocks overview
+
+- `http_transfer_sink` - block provides HTTP (POST) transmission capabilities to the destination server
+- `http_transfer_source` - block gets data using HTTP (GET) from server
+- `websocket_transfer_sink` - websocket transfer capabilities (obsolete)
+
+![Source_sink](https://github.com/pavelfpl/gr-gsSDR/blob/master/http_sink_source.png)
+
 ## Screenshots
 
->`websocket_transfer_sink` with `gr-satellites` blocks: https://github.com/daniestevez/gr-satellites/
+>`http_transfer_sink` with `gr-satellites` blocks: https://github.com/daniestevez/gr-satellites/
 
-![Example Source](https://github.com/pavelfpl/gr-gsSDR/blob/master/examples/websocket_transfer_sink_example.png)
+![Example Source](https://github.com/pavelfpl/gr-gsSDR/blob/master/examples/http_transfer_sink_example.png)

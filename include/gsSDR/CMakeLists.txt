@@ -23,5 +23,7 @@
 ########################################################################
 install(FILES
     api.h
-    websocket_transfer_sink.h DESTINATION include/gsSDR
+    websocket_transfer_sink.h
+    http_transfer_sink.h
+    http_transfer_source.h DESTINATION include/gsSDR
 )

@@ -1,20 +1,24 @@
-id: gsSDR_websocket_transfer_sink
-label: websocket_transfer_sink
+id: gsSDR_http_transfer_sink
+label: http_transfer_sink
 category: '[gsSDR]'
 
 templates:
   imports: import gsSDR
-  make: gsSDR.websocket_transfer_sink(${ServerName}, ${ServerPort}, ${stationId}, ${spacecraftId}, ${UserName}, ${UserPass})
-
+  make: gsSDR.http_transfer_sink(${ServerName}, ${ServerPort}, ${ServerTarget}, ${stationId}, ${spacecraftId}, ${UserName}, ${UserPass})
+    
 parameters:  
 -   id: ServerName
     label: ServerName
     dtype: string
-    default: '178.128.160.180'  
+    default: 'localhost'  
 -   id: ServerPort
     label: ServerPort
     dtype: string
-    default: '8002'  
+    default: '8080'  
+-   id: ServerTarget
+    label: ServerTarget
+    dtype: string
+    default: '/gs/tm'  
 -   id: stationId
     label: StationId
     dtype: int
@@ -31,11 +35,10 @@ parameters:
     label: UserPass
     dtype: string
     default: ''   
-    
 inputs:
 -   domain: message
-    id: in  
-  
+    id: in    
+
 #  Make one 'parameters' list entry for every parameter you want settable from the GUI.
 #     Keys include:
 #     * id (makes the value accessible as \$keyname, e.g. in the make entry)
@@ -71,14 +74,14 @@ inputs:
 #  optional: ...
 
 #  'file_format' specifies the version of the GRC yml format used in the file
-#  and should usually not be changed.
-
-
+#  and should usually not be changed.    
+    
 documentation: |-
-    This block provides JSON websocket transmission capabilities to the server (source)
+    This block provides HTTP transmission capabilities to the server (destination)
     Parameters:
     ServerName: IP address or DNS server name - eg. localhost
-    ServerPort: server port - eg. 8002
+    ServerPort: server port - eg. 8080
+    ServerTarget: server target - eg. /gs/tm
     StationId: id of station - integer
     UserName: user name - optional parameter
     UserPass: user password - optional parameter

@@ -45,7 +45,7 @@ namespace gr {
        * class. gsSDR::websocket_transfer_sink::make is the public interface for
        * creating new instances.
        */
-      static sptr make(const std::string &ServerName="178.128.160.180", const std::string &ServerPort="8002", int stationId=0, const std::string &UserName="", const std::string &UserPass="");
+      static sptr make(const std::string &ServerName="178.128.160.180", const std::string &ServerPort="8002", int stationId=0, int spacecraftId=0, const std::string &UserName="", const std::string &UserPass="");
     };
 
   } // namespace gsSDR
