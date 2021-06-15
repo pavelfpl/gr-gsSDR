@@ -1,0 +1,28 @@
+id: gsSDR_gs_doppler_correction
+label: gs_doppler_correction
+category: '[gsSDR]'
+
+templates:
+  imports: import gsSDR
+  make: gsSDR.gs_doppler_correction(${ServerName}, ${ServerPort}, ${sourceType})
+
+parameters:  
+-   id: ServerName
+    label: ServerName
+    dtype: string
+    default: 'localhost'  
+-   id: ServerPort
+    label: ServerPort
+    dtype: string
+    default: '4532'  
+-   id: sourceType
+    label: sourceType
+    dtype: int
+    default: 0       
+outputs:
+-   domain: message
+    id: out 
+    
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

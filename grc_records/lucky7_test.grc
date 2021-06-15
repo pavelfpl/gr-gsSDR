@@ -67,9 +67,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [240, 248.0]
+    coordinate: [248, 264.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: blocks_throttle_0
   id: blocks_throttle
   parameters:
@@ -148,7 +148,7 @@ blocks:
     bus_structure: null
     coordinate: [8, 220.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: satellites_fsk_demodulator_0
   id: satellites_fsk_demodulator
   parameters:

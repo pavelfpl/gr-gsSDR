@@ -28,6 +28,7 @@ list(APPEND gsSDR_sources
     websocket_transfer_sink_impl.cc
     http_transfer_sink_impl.cc
     http_transfer_source_impl.cc
+    gs_doppler_correction_impl.cc
 )
 
 set(gsSDR_sources "${gsSDR_sources}" PARENT_SCOPE)

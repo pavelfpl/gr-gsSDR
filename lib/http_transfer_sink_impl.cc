@@ -346,14 +346,14 @@ namespace gr {
                 catch(std::exception const& e){
                     std::cerr << "Error: " << e.what() << std::endl; // return EXIT_FAILURE;
                 }
-            
-                // Waiting for data ...
-                // --------------------
-                boost::this_thread::sleep(boost::posix_time::milliseconds(CONST_SLEEP_INTERVAL_MILI_SECONDS));
-                
-                gr::thread::scoped_lock lock(fp_mutex);   // shared resources ...
-                if(m_exit_requested) break;               // shared global variable - exit requested if m_exit_requested == TRUE --> break ...  
             }
+            
+            // Waiting for data ...
+            // --------------------
+            boost::this_thread::sleep(boost::posix_time::milliseconds(CONST_SLEEP_INTERVAL_MILI_SECONDS));
+                
+            gr::thread::scoped_lock lock(fp_mutex);   // shared resources ...
+            if(m_exit_requested) break;               // shared global variable - exit requested if m_exit_requested == TRUE --> break ...  
         }
     }
     

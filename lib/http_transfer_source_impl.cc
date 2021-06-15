@@ -140,8 +140,7 @@ namespace gr {
        // std::regex reg("\\\"([0-9]+\\.{0,1}[0-9]*)\\\"");
         std::string json_corection_1 = std::regex_replace(json, reg, "$1");
         std::regex reg_2("\\\"(true|false)\\\"");
-        std::string json_corection_2 = std::regex_replace(json_corection_1, 
-reg_2, "$1");
+        std::string json_corection_2 = std::regex_replace(json_corection_1, reg_2, "$1");
 
 #ifdef CONST_DEBUG  
         std::cout<<json_corection_2<<std::endl;
@@ -150,8 +149,7 @@ reg_2, "$1");
     }
     
     // create_json_response - static function ...
-    static std::string create_json_response(int64_t timestamp, int 
-spacecraftId){
+    static std::string create_json_response(int64_t timestamp, int spacecraftId){
 
         pt::ptree oroot_response;
         oroot_response.put("timestamp",timestamp); 
@@ -162,31 +160,23 @@ spacecraftId){
     }   
     
     http_transfer_source::sptr
-    http_transfer_source::make(const std::string &ServerName, const std::string 
-&ServerPort,const std::string &ServerTarget, int stationId, int spacecraftId, 
-const std::string &UserName, const std::string &UserPass)
-    {
-      return gnuradio::get_initial_sptr
-        (new http_transfer_source_impl(ServerName, ServerPort, ServerTarget, 
-stationId, spacecraftId, UserName, UserPass));
+    http_transfer_source::make(const std::string &ServerName, const std::string &ServerPort,const std::string &ServerTarget, int stationId, int spacecraftId, 
+        const std::string &UserName, const std::string &UserPass){
+            return gnuradio::get_initial_sptr
+                (new http_transfer_source_impl(ServerName, ServerPort, ServerTarget, stationId, spacecraftId, UserName, UserPass));
     }
 
     /*
      * The private constructor ...
      * ---------------------------
      */
-    http_transfer_source_impl::http_transfer_source_impl(const std::string 
-&ServerName, const std::string &ServerPort,const std::string &ServerTarget, int 
-stationId, int spacecraftId, const std::string &UserName, const std::string 
-&UserPass)
+    http_transfer_source_impl::http_transfer_source_impl(const std::string &ServerName, const std::string &ServerPort,const std::string &ServerTarget, int stationId, int spacecraftId, const std::string &UserName, const std::string &UserPass)
       : gr::block("http_transfer_source",
-              gr::io_signature::make(0,0,0),    // <+MIN_IN+>, <+MAX_IN+>, 
-sizeof(<+ITYPE+>)
-              gr::io_signature::make(0,0,0)),   // <+MIN_OUT+>, <+MAX_OUT+>, 
-sizeof(<+OTYPE+>)
+              gr::io_signature::make(0,0,0),    // <+MIN_IN+>, <+MAX_IN+>, sizeof(<+ITYPE+>)
+              gr::io_signature::make(0,0,0)),   // <+MIN_OUT+>, <+MAX_OUT+>, sizeof(<+OTYPE+>)
               m_ServerName(ServerName), 
-m_ServerPort(ServerPort),m_ServerTarget(ServerTarget), m_stationId(stationId), 
-m_spacecraftId(spacecraftId), m_UserName(UserName), m_UserPass(UserPass)
+              m_ServerPort(ServerPort),m_ServerTarget(ServerTarget), m_stationId(stationId), 
+              m_spacecraftId(spacecraftId), m_UserName(UserName), m_UserPass(UserPass)
     {
         
        m_exit_requested = false; 
@@ -197,17 +187,14 @@ m_spacecraftId(spacecraftId), m_UserName(UserName), m_UserPass(UserPass)
        message_port_register_out(out_port_0);  
       
        /* Create read stream THREAD 
-[http://antonym.org/2009/05/threading-with-boost---part-i-creating-threads.html]
-          and 
-[http://antonym.org/2010/01/threading-with-boost---part-ii-threading-challenges.
-html]
+        [http://antonym.org/2009/05/threading-with-boost---part-i-creating-threads.html]
+        and 
+        [http://antonym.org/2010/01/threading-with-boost---part-ii-threading-challenges.html]
        */
 #ifdef CONST_DEBUG       
-      cout << "Threading - using up to CPUs/Cores: "<< 
-boost::thread::hardware_concurrency() <<endl;
+      cout << "Threading - using up to CPUs/Cores: "<< boost::thread::hardware_concurrency() <<endl;
 #endif
-      _thread = 
-gr::thread::thread(&http_transfer_source_impl::http_transfer_source_wait,this);
+      _thread = gr::thread::thread(&http_transfer_source_impl::http_transfer_source_wait,this);
     }
 
     /*
@@ -249,8 +236,7 @@ endl;
         if(_thread.joinable()) _thread.join();
     }
     
-    // http_transfer_source_wait function [provides new THREAD] - [private /* 
-static */] ...
+    // http_transfer_source_wait function [provides new THREAD] - [private /* static */] ...
     void http_transfer_source_impl::http_transfer_source_wait(){
         
              bool server_connected = true;
@@ -263,21 +249,18 @@ static */] ...
              string packet_payload="";
         
 #ifdef CONST_DEBUG
-            cout << "http_transfer_sink_wait SDR processing THREAD was started 
-..." << endl;
+            cout << "http_transfer_sink_wait SDR processing THREAD was started" << endl;
 #endif
             if(m_exit_requested){
 #ifdef CONST_DEBUG            
-               cout<< "http_transfer_sink_wait processing THREAD ends - clearing 
-resources ... "<< endl;   
+               cout<< "http_transfer_sink_wait processing THREAD ends - clearing resources ... "<< endl;   
 #endif
                return; 
             }
             
             // Set up an HTTP GET request message ...
             // --------------------------------------
-            // http::request<http::string_body> req{http::verb::get, target, 
-version};
+            // http::request<http::string_body> req{http::verb::get, target, version};
             // req.set(http::field::host, host);
             // req.set(http::field::user_agent, BOOST_BEAST_VERSION_STRING);
             
@@ -314,12 +297,10 @@ version};
             // Declare a container to hold the response ...
             http::response<http::dynamic_body> res;
             
-            auto results = resolver.resolve(m_ServerName, m_ServerPort);  // 
-Look up the domain name ...
+            auto results = resolver.resolve(m_ServerName, m_ServerPort);  // Look up the domain name ...
             
             try{
-                // Make the connection on the IP address we get from a lookup 
-...
+                // Make the connection on the IP address we get from a lookup ...
 #ifdef CONST_BOOST_1_7
                 stream.connect(results);
 #else
@@ -328,14 +309,12 @@ Look up the domain name ...
             }
                 
             catch (boost::system::system_error const& e){
-                std::cout << "Warning: could not connect : " << e.what() << 
-std::endl;
+                std::cout << "Warning: could not connect : " << e.what() << std::endl;
                 server_connected = false;
             }
 
             catch(std::exception const& e){
-                std::cerr << "Error: " << e.what() << std::endl; // return 
-EXIT_FAILURE;
+                std::cerr << "Error: " << e.what() << std::endl; // return EXIT_FAILURE;
                 server_connected = false;
             }
             
@@ -349,26 +328,20 @@ EXIT_FAILURE;
 #ifdef CONST_BOOST_1_7
                         stream.connect(results);
 #else
-                        boost::asio::connect(stream, results.begin(), 
-results.end());
+                        boost::asio::connect(stream, results.begin(), results.end());
 #endif               
                         
                         server_connected = true;
                     }
                     
-                    http::write(stream, req_get);           // Send (periodic) 
-the HTTP request to the remote host ...
-                    beast::flat_buffer buffer;              // This buffer is 
-used for reading and must be persisted ...
-                    http::response<http::dynamic_body> res; // Declare a 
-container to hold the response
-                    http::read(stream, buffer, res);        // Receive the HTTP 
-response
+                    http::write(stream, req_get);           // Send (periodic) the HTTP request to the remote host ...
+                    beast::flat_buffer buffer;              // This buffer is used for reading and must be persisted ...
+                    http::response<http::dynamic_body> res; // Declare a container to hold the response
+                    http::read(stream, buffer, res);        // Receive the HTTP response
 
                     // std::cout << res << std::endl; 
 
-                    std::string s = 
-boost::beast::buffers_to_string(res.body().data());
+                    std::string s = boost::beast::buffers_to_string(res.body().data());
 
                     // std::cout <<"Data response: "<< s << std::endl;
 
@@ -386,13 +359,11 @@ boost::beast::buffers_to_string(res.body().data());
 
                         for (auto& array_element : pt_read) {
                           for (auto& property : array_element.second){
-                            std::cout << property.first << " = " << 
-property.second.get_value<std::string>() << "\n";
+                            std::cout << property.first << " = " << property.second.get_value<std::string>() << "\n";
                             
                             //-- 1] test property - type  ...
                             if(property.first.compare("type")==0){ // TC ...
-                               packet_type = 
-property.second.get_value<std::string>();
+                               packet_type = property.second.get_value<std::string>();
                             }       
                             
                             //-- 2] test property - timestamp  ...
@@ -402,8 +373,7 @@ property.second.get_value<std::string>();
                             
                             //-- 3] test property - payload  ...
                             if(property.first.compare("payload")==0){
-                               packet_payload = 
-property.second.get_value<std::string>();
+                               packet_payload = property.second.get_value<std::string>();
                             }       
 
                             //-- 4] test property - spacecraftId  ...
@@ -418,10 +388,8 @@ property.second.get_value<std::string>();
                         }
                     }
                     
-                    if(packet_type.compare("TC")==0 && timestamp!=0 && 
-spacecraftId != 0){
-                       req_post_resp.body() = 
-create_json_response(timestamp,spacecraftId);
+                    if(packet_type.compare("TC")==0 && timestamp!=0 && spacecraftId != 0){
+                       req_post_resp.body() = create_json_response(timestamp,spacecraftId);
                        req_post_resp.prepare_payload();
 
                        http::write(stream, req_post_resp); 
@@ -432,8 +400,7 @@ create_json_response(timestamp,spacecraftId);
 
                        if(resStatus.result_int() == 200){
 #ifdef CONST_DEBUG_HTTP                         
-                          std::cout<<"Packet ACK was sent OK ... 
-"<<resStatus.result()<<std::endl;
+                          std::cout<<"Packet ACK was sent OK ..."<<resStatus.result()<<std::endl;
 #endif
                        }
                     }
@@ -441,21 +408,18 @@ create_json_response(timestamp,spacecraftId);
               } // End of TRY - CATCH ...
                 
               catch (boost::system::system_error const& e){
-                    std::cout << "Warning: could not connect : " << e.what() << 
-std::endl;
+                    std::cout << "Warning: could not connect : " << e.what() << std::endl;
                     server_connected = false;
               }
 
               catch(std::exception const& e){
-                    std::cerr << "Error: " << e.what() << std::endl; // return 
-EXIT_FAILURE;
+                    std::cerr << "Error: " << e.what() << std::endl; // return EXIT_FAILURE;
                     server_connected = false;
               }
               
               // Create pdu and send payload data to SDR radio ...
               // -------------------------------------------------
-              if(packet_type.compare("TC")==0 && timestamp!=0 && spacecraftId != 
-0){
+              if(packet_type.compare("TC")==0 && timestamp!=0 && spacecraftId !=0){
                 
                 int c = 0;   
                 bool ok = true;
@@ -463,11 +427,9 @@ EXIT_FAILURE;
                  
                 for(int i=0;i<packet_payload.length(); i+=2){
                      if(i==0){
-                       if(packet_payload.substr(0,2).compare("0x")!=0){ok = 
-false; break;}   
+                       if(packet_payload.substr(0,2).compare("0x")!=0){ok = false; break;}   
                      }else{
-                       
-pmt_payload[c++]=(string_to_uint8(packet_payload.substr(i,2)));   
+                       pmt_payload[c++]=(string_to_uint8(packet_payload.substr(i,2)));   
                      }
                 }
                 
@@ -475,26 +437,20 @@ pmt_payload[c++]=(string_to_uint8(packet_payload.substr(i,2)));
                    // Create PDU (DATA payload + meta data) ... 
                    // ------------------------------------------ 
                    pmt::pmt_t meta = pmt::make_dict();
-                   meta = pmt::dict_add(meta, 
-pmt::string_to_symbol("timestamp"), pmt::from_long(timestamp));
-                   meta = pmt::dict_add(meta, 
-pmt::string_to_symbol("spacecraftId"), pmt::from_long(spacecraftId));  
-                   meta = pmt::dict_add(meta, pmt::string_to_symbol("radioId"), 
-pmt::from_long(radioId));
+                   meta = pmt::dict_add(meta, pmt::string_to_symbol("timestamp"), pmt::from_long(timestamp));
+                   meta = pmt::dict_add(meta, pmt::string_to_symbol("spacecraftId"), pmt::from_long(spacecraftId));  
+                   meta = pmt::dict_add(meta, pmt::string_to_symbol("radioId"), pmt::from_long(radioId));
                    
-                   pmt::pmt_t data_vector = 
-pmt::init_u8vector(pmt_payload.size(),pmt_payload); 
+                   pmt::pmt_t data_vector = pmt::init_u8vector(pmt_payload.size(),pmt_payload); 
                    message_port_pub(out_port_0, pmt::cons(meta, data_vector));
                 }
                 
                 // Reset all parameters ...  
-                packet_type = "";  packet_payload = "";  timestamp = 0;  
-spacecraftId = 0; radioId = 0;
+                packet_type = "";  packet_payload = "";  timestamp = 0;  spacecraftId = 0; radioId = 0;
               }
               
               gr::thread::scoped_lock lock(fp_mutex);   // shared resources ...
-              if(m_exit_requested){                     // shared global 
-variable - exit requested if m_exit_requested == TRUE --> break ... 
+              if(m_exit_requested){                     // shared global variable - exit requested if m_exit_requested == TRUE --> break ... 
                 if(!server_connected) break; 
                   
                 try{ 
@@ -506,20 +462,16 @@ variable - exit requested if m_exit_requested == TRUE --> break ...
 #else
                    stream.shutdown(tcp::socket::shutdown_both, ec);
 #endif
-                   // Not_connected happens sometimes, so don't bother reporting 
-it ...
-                   if(ec && ec != beast::errc::not_connected) throw 
-beast::system_error{ec};
+                   // Not_connected happens sometimes, so don't bother reporting it ...
+                   if(ec && ec != beast::errc::not_connected) throw beast::system_error{ec};
                 }
                 
                 catch (boost::system::system_error const& e){
-                    std::cout << "Warning: could not disconnect : " << e.what() 
-<< std::endl;
+                    std::cout << "Warning: could not disconnect : " << e.what() << std::endl;
                 }
 
                 catch(std::exception const& e){
-                    std::cerr << "Error: " << e.what() << std::endl; // return 
-EXIT_FAILURE;
+                    std::cerr << "Error: " << e.what() << std::endl; // return EXIT_FAILURE;
                 } 
                   
                 // Break finally ... 
@@ -529,20 +481,16 @@ EXIT_FAILURE;
                 
               // Waiting for data ...
               // --------------------
-              
-boost::this_thread::sleep(boost::posix_time::milliseconds(
-CONST_SLEEP_INTERVAL_MILI_SECONDS)); 
+              boost::this_thread::sleep(boost::posix_time::milliseconds(CONST_SLEEP_INTERVAL_MILI_SECONDS)); 
         
         }
     }
     
-    void http_transfer_source_impl::forecast (int noutput_items, gr_vector_int 
-&ninput_items_required){
+    void http_transfer_source_impl::forecast (int noutput_items, gr_vector_int &ninput_items_required){
         /* <+forecast+> e.g. ninput_items_required[0] = noutput_items */
     }
 
-    int
-    http_transfer_source_impl::general_work (int noutput_items,
+    int http_transfer_source_impl::general_work (int noutput_items,
                        gr_vector_int &ninput_items,
                        gr_vector_const_void_star &input_items,
                        gr_vector_void_star &output_items)
