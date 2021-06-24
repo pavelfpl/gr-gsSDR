@@ -42,6 +42,8 @@
 #define CONST_CONNECTION_TIMEOUT 60
 #define CONST_READ_TIMEOUT 15
 
+#define CONST_PAYLOAD_LENGTH 1
+
 namespace gr {
   namespace gsSDR {
       
@@ -336,7 +338,11 @@ endl;
         pmt::pmt_t meta = pmt::make_dict();
         meta = pmt::dict_add(meta, pmt::string_to_symbol("freq"), pmt::from_long(freq));
 
-        message_port_pub(out_port_0, meta);
+        vector<uint32_t> pmt_payload(CONST_PAYLOAD_LENGTH);
+        pmt_payload[0] = freq; 
+        
+        pmt::pmt_t data_vector = pmt::init_u32vector(pmt_payload.size(),pmt_payload); 
+        message_port_pub(out_port_0, pmt::cons(meta, data_vector));
     }
     
     // gs_doppler_correction_wait - new thread ...
