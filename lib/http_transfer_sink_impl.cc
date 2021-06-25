@@ -70,7 +70,7 @@
 #define CONST_WRITE_BUFFER_SIZE 10
 #define CONST_SLEEP_INTERVAL_MILI_SECONDS 1000
  
-//#define CONST_DEBUG
+#define CONST_DEBUG
 #define CONST_DEBUG_HTTP
 
 /*
@@ -118,12 +118,13 @@ namespace gr {
         std::ostringstream buf;
         write_json (buf, oroot_, false);
         std::string json = buf.str();
+        
 
         std::regex reg("\\\"((?:0[xX])?[0-9a-fA-F]+)\\\"");                             // std::regex reg("\\\"([0-9]+\\.{0,1}[0-9]*)\\\"");
         std::string json_corection_1 = std::regex_replace(json, reg, "$1");
         std::regex reg_2("\\\"(true|false)\\\"");
         std::string json_corection_2 = std::regex_replace(json_corection_1, reg_2, "$1");
-
+        
 #ifdef CONST_DEBUG  
         std::cout<<json_corection_2<<std::endl;
 #endif
@@ -281,13 +282,13 @@ namespace gr {
             // Declare a container to hold the response ...
             http::response<http::dynamic_body> res;
 
-            
             // While TRUE loop ...
             // -------------------
             while(true){
              if(data_sent_success) niutput_items_real = m_fifo.fifo_read_storage(buffer_write_storage, CONST_WRITE_BUFFER_SIZE); 
 
              if(niutput_items_real > 0){
+                 
                 try{ 
                     // Look up the domain name ...
                     auto const results = resolver.resolve(m_ServerName, m_ServerPort);
@@ -398,10 +399,14 @@ namespace gr {
         std::ostringstream ss;
         ss << std::hex << std::uppercase << std::setfill('0');
         std::for_each(data_uint8.cbegin(), data_uint8.cend(), [&](int c) {ss << std::setw(2) << c; });
-        std::string dataResult; dataResult.append("\""); dataResult.append("0x"); dataResult.append(ss.str()); dataResult.append("\"");
+        std::string dataResult; dataResult.append("\"");/* dataResult.append("0x");*/  dataResult.append(ss.str()); dataResult.append("\"");
 
+#ifdef CONST_DEBUG        
+        cout<<"DataResult: "<<dataResult<<endl;
+#endif
+        
         oroot.put("payload", dataResult);
-        oroot.put("spacecraftId", 1);
+        oroot.put("spacecraftId", m_spacecraftId);
 
         // Add to circular buffer ...
         // --------------------------

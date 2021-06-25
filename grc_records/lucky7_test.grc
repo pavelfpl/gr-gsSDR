@@ -99,7 +99,7 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     nchan: '1'
-    repeat: 'False'
+    repeat: 'True'
   states:
     bus_sink: false
     bus_source: false
