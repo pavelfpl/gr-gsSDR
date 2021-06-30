@@ -49,7 +49,7 @@ namespace gr {
        * class. gsSDR::gs_doppler_correction::make is the public interface for
        * creating new instances.
        */
-      static sptr make(const std::string &ServerName, const std::string &ServerPort, int sourceType);
+      static sptr make(const std::string &ServerName, const std::string &ServerPort, int sourceType, double baseFrequency);
     };
 
   } // namespace gsSDR

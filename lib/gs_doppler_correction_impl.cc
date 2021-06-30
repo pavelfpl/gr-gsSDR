@@ -44,6 +44,9 @@
 
 #define CONST_PAYLOAD_LENGTH 1
 
+#define CONST_GPREDICT_SOURCE 0
+#define CONST_GSJD_SOURCE 1
+
 namespace gr {
   namespace gsSDR {
       
@@ -72,7 +75,10 @@ namespace gr {
     // ------------------------
     
     // server_session constructor ...
-    server_session::server_session(boost::asio::io_service& io_service, server *p_server_) :io_service_(io_service),p_server(p_server_), socket_(io_service),timer_(io_service){}
+    server_session::server_session(boost::asio::io_service& io_service, int sourceType, server *p_server_) :io_service_(io_service), m_sourceType(sourceType), p_server(p_server_), socket_(io_service),timer_(io_service){
+        m_freq_rx = 0;
+        m_freq_tx = 0;
+    }
             
     tcp::socket& server_session::socket(){ 
          return socket_;
@@ -107,7 +113,9 @@ namespace gr {
     // handle_read ...
     void server_session::handle_read(const boost::system::error_code& error, size_t bytes_transferred){
 
-        int freq=0; 
+        int freq_rx = 0;
+        int freq_tx = 0;
+        
         std::string response; 
         
         newFreq = false;
@@ -124,25 +132,110 @@ namespace gr {
            ss<<&buffer;                
            std::string s = ss.str();
            
-           //Check if s starts with given prefix ...
-           if (s.rfind("F", 0) == 0) {
-               s.erase(0, 1);
-               s.erase(std::remove(s.begin(), s.end(), '\n'),s.end());
-               boost::algorithm::trim(s);
-            
-               try{
-                   freq = boost::lexical_cast<int>(s);
-                   if(freq!=m_freq){ m_freq = freq; newFreq = true;}
-               }catch(boost::bad_lexical_cast const& e){
-                    std::cout << "Error: " << e.what() << "\n";
-               }
+           // 1] Source type GPREDICT ...
+           // ---------------------------
+           if(m_sourceType == CONST_GPREDICT_SOURCE){
+                //Check if s starts with given prefix ...
+                if (s.rfind("F", 0) == 0) {
+                    s.erase(0, 1);
+                    s.erase(std::remove(s.begin(), s.end(), '\n'),s.end());
+                    boost::algorithm::trim(s);
+                    
+                    try{
+                        freq_rx = boost::lexical_cast<int>(s);
+                        if(freq_rx!=m_freq_rx){ m_freq_rx = freq_rx; newFreq = true;}
+                    }catch(boost::bad_lexical_cast const& e){
+                            std::cout << "Conversion error: " << e.what() << "\n";
+                    }
+                    
+                    response = "RPRT 0\n";
+                    
+                } else if (s.rfind("f", 0) == 0) {
+                    response=string("f:")+std::to_string(m_freq_rx)+string("\n");
+                } else{
+                    return;
+                } 
+           }
+           
+           // -------------------------
+           // 2] Source type - GSJD ...
+           // -------------------------
+           if(m_sourceType == CONST_GSJD_SOURCE){
                
-               response = "RPRT 0\n";
-               
-           } else if (s.rfind("f", 0) == 0) {
-               response=string("f:")+std::to_string(m_freq)+string("\n");
-           } else{
-                return;
+              string prefix_rx, prefix_tx;
+              
+              if(s.rfind("f", 0) == 0) {         // RX frequency ...
+                 size_t found = s.rfind("F");    // TX frequency ...
+                 
+                 if(found!=std::string::npos){
+                    prefix_tx = s.substr(s.find("F"), s.length()-1);
+
+                    prefix_tx.erase(0, 1);
+                    prefix_tx.erase(0, prefix_tx.find_first_not_of('0'));
+                    boost::algorithm::trim(prefix_tx);
+                    
+                    try{
+                        freq_tx = boost::lexical_cast<int>(prefix_tx);
+                        if(freq_tx!=m_freq_tx){ m_freq_tx = freq_tx; newFreq = true;}
+                    }catch(boost::bad_lexical_cast const& e){
+                        std::cout << "Conversion error: " << e.what() << "\n";
+                    }
+                    
+                    cout << "TX frequency string: "<< prefix_tx << endl;
+
+                    // Evaluate RX freq ...
+                    prefix_rx = s.substr(0, s.find("F"));
+                }else{
+                    prefix_rx = s;
+                }
+
+                prefix_rx.erase(0, 1);
+                prefix_rx.erase(0, prefix_rx.find_first_not_of('0'));
+                boost::algorithm::trim(prefix_rx);
+
+                cout << "RX frequency string: "<< prefix_rx << endl;
+                
+                try{
+                    freq_rx = boost::lexical_cast<int>(prefix_rx);
+                    if(freq_rx!=m_freq_rx){ m_freq_rx = freq_rx; newFreq = true;}
+                }catch(boost::bad_lexical_cast const& e){
+                    std::cout << "Conversion error: " << e.what() << "\n";
+                }
+                
+                // Response ...
+                response = "OK\n";
+                
+            }else if(s.rfind("F", 0) == 0){
+                s.erase(0, 1);
+                s.erase(0, s.find_first_not_of('0'));
+                boost::algorithm::trim(s);
+
+                cout << "TX frequency string: "<< s << endl;
+                    
+                try{
+                    freq_tx = boost::lexical_cast<int>(prefix_tx);
+                    if(freq_tx!=m_freq_tx){ m_freq_tx = freq_tx; newFreq = true;}
+                }catch(boost::bad_lexical_cast const& e){
+                    std::cout << "Conversion error: " << e.what() << "\n";
+                }
+                
+                // Response ...
+                response = "OK\n";
+                
+             }else if(s.rfind("M", 0) == 0){
+                s.erase(0, 1);
+                s.erase(0, s.find_first_not_of('0'));
+                boost::algorithm::trim(s);  
+                
+                cout << "Radio state: "<< s << endl;
+                
+                // Response ...
+                response = "OK\n"; 
+             }else{
+               // No known state - return ...
+               // response = "";   
+               return;  
+             }
            }
            
            boost::asio::async_write(socket_,
@@ -167,7 +260,7 @@ namespace gr {
             }
                    
             // Set new frequency ...
-            if(newFreq) gs_doppler_correction_impl::mainInstance()->message_callback(m_freq);
+            if(newFreq) gs_doppler_correction_impl::mainInstance()->message_callback(m_freq_rx,m_freq_tx);
         }
                 
         if(!error){
@@ -185,8 +278,8 @@ namespace gr {
     //-----------------
     
     // server constructor ...
-    server::server(boost::asio::io_service& io_service, short port)
-            :io_service_(io_service), acceptor_(io_service, tcp::endpoint(tcp::v4(), port)),timer_(io_service){
+    server::server(boost::asio::io_service& io_service, short port, int sourceType)
+            :io_service_(io_service), m_sourceType(sourceType), acceptor_(io_service, tcp::endpoint(tcp::v4(), port)),timer_(io_service){
 
             cout<<"Waiting for connection ..."<<endl;    
                     
@@ -195,7 +288,7 @@ namespace gr {
             timer_.expires_from_now( boost::posix_time::seconds(CONST_CONNECTION_TIMEOUT));
             timer_.async_wait(boost::bind(&server::handle_timeout, this, boost::asio::placeholders::error));    
                     
-            server_session* new_session = new server_session(io_service_,this);
+            server_session* new_session = new server_session(io_service_,m_sourceType,this);
             acceptor_.async_accept(new_session->socket(),
                             boost::bind(&server::handle_accept, this, new_session,
                             boost::asio::placeholders::error));
@@ -235,7 +328,7 @@ namespace gr {
         if (!error){
             add_active_connection();
             new_session->start();
-            new_session = new server_session(io_service_,this);
+            new_session = new server_session(io_service_,m_sourceType,this);
             acceptor_.async_accept(new_session->socket(),
             boost::bind(&server::handle_accept, this, new_session,
             boost::asio::placeholders::error));
@@ -245,10 +338,10 @@ namespace gr {
     }
     
     gs_doppler_correction::sptr
-    gs_doppler_correction::make(const std::string &ServerName, const std::string &ServerPort, int sourceType)
+    gs_doppler_correction::make(const std::string &ServerName, const std::string &ServerPort, int sourceType, double baseFrequency)
     {
       return gnuradio::get_initial_sptr
-        (new gs_doppler_correction_impl(ServerName, ServerPort, sourceType));
+        (new gs_doppler_correction_impl(ServerName, ServerPort, sourceType, baseFrequency));
     }
 
     // mainInstance - public !!! static !!! function - OK ...
@@ -266,21 +359,26 @@ namespace gr {
      * The private constructor ...
      * ---------------------------
      */
-    gs_doppler_correction_impl::gs_doppler_correction_impl(const std::string &ServerName, const std::string &ServerPort, int sourceType)
+    gs_doppler_correction_impl::gs_doppler_correction_impl(const std::string &ServerName, const std::string &ServerPort, int sourceType, double baseFrequency)
       : gr::block("http_transfer_source",
               gr::io_signature::make(0,0,0),    // <+MIN_IN+>, <+MAX_IN+>, sizeof(<+ITYPE+>)
               gr::io_signature::make(0,0,0)),   // <+MIN_OUT+>, <+MAX_OUT+>, sizeof(<+OTYPE+>)
-              m_ServerName(ServerName), m_ServerPort(ServerPort), m_sourceType(sourceType)
+              m_ServerName(ServerName), m_ServerPort(ServerPort), m_sourceType(sourceType), m_baseFrequency(baseFrequency)
     {
        
        sInstance = this;  
         
        m_exit_requested = false; 
 
-       // Register PDU output port ...
-       // ---------------------------- 
-       out_port_0 = pmt::mp("out");
+       // Register PDU output port / RX == 0 ...
+       // --------------------------------------
+       out_port_0 = pmt::mp("out_rx");
        message_port_register_out(out_port_0);  
+       
+       // Register PDU output port / RX == 0 ...
+       // --------------------------------------
+       out_port_1 = pmt::mp("out_tx");
+       message_port_register_out(out_port_1); 
       
        /* -- Create read stream THREAD -- 
        [http://antonym.org/2009/05/threading-with-boost---part-i-creating-threads.html]
@@ -333,16 +431,29 @@ endl;
     }
     
     // message_callback [public] ...
-    void gs_doppler_correction_impl::message_callback(int freq){
+    void gs_doppler_correction_impl::message_callback(int freq_rx, int freq_tx){
         
-        pmt::pmt_t meta = pmt::make_dict();
-        meta = pmt::dict_add(meta, pmt::string_to_symbol("freq"), pmt::from_long(freq));
-
-        vector<uint32_t> pmt_payload(CONST_PAYLOAD_LENGTH);
-        pmt_payload[0] = freq; 
+        // vector<float> pmt_payload_rx(CONST_PAYLOAD_LENGTH);
+        // vector<float> pmt_payload_tx(CONST_PAYLOAD_LENGTH);
         
-        pmt::pmt_t data_vector = pmt::init_u32vector(pmt_payload.size(),pmt_payload); 
-        message_port_pub(out_port_0, pmt::cons(meta, data_vector));
+        float freq_rx_comp =  m_baseFrequency - float(freq_rx);
+        float freq_tx_comp =  m_baseFrequency - float(freq_tx);
+        
+        pmt::pmt_t meta_rx = pmt::make_dict();
+        meta_rx = pmt::dict_add(meta_rx, pmt::string_to_symbol("freq"), pmt::from_double(freq_rx_comp));
+        
+        pmt::pmt_t meta_tx = pmt::make_dict();
+        meta_tx = pmt::dict_add(meta_tx, pmt::string_to_symbol("freq"), pmt::from_double(freq_tx_comp));
+        
+        // pmt_payload_rx[0] = freq_rx_comp; 
+        // pmt_payload_tx[0] = freq_tx_comp;  
+        
+        // pmt::pmt_t data_vector_rx = pmt::init_f32vector(pmt_payload_rx.size(),pmt_payload_rx); 
+        message_port_pub(out_port_0, meta_rx);  //  pmt::cons(meta_rx, data_vector_rx)
+        
+        // pmt::pmt_t data_vector_tx = pmt::init_f32vector(pmt_payload_tx.size(),pmt_payload_tx); 
+        message_port_pub(out_port_1,meta_tx);   //  pmt::cons(meta_tx, data_vector_tx)
+        
     }
     
     // gs_doppler_correction_wait - new thread ...
@@ -360,7 +471,7 @@ endl;
             
             boost::asio::io_service io_service;
     
-            server s(io_service, string_to_short(m_ServerPort));     // atoi(argv[1])
+            server s(io_service, string_to_short(m_ServerPort),m_sourceType);     // atoi(argv[1])
 
             io_service.run();
                 

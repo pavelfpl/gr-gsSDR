@@ -46,7 +46,7 @@ namespace gr {
     // ---------------
     class server {
         public:
-            server(boost::asio::io_service& io_service, short port);
+            server(boost::asio::io_service& io_service, short port, int sourceType);
             void handle_timeout(const boost::system::error_code& error);
                 
             void decrement_active_connection();
@@ -59,13 +59,14 @@ namespace gr {
             boost::asio::deadline_timer timer_;
     
            int count; 
+           int m_sourceType;
     };
     
     // Class server_session ...
     // ------------------------
     class server_session{
         public:
-            server_session(boost::asio::io_service& io_service, server *p_server_);
+            server_session(boost::asio::io_service& io_service,int sourceType, server *p_server_);
             tcp::socket& socket();
             void start();
             void handle_timeout(const boost::system::error_code& error);
@@ -79,7 +80,9 @@ namespace gr {
             boost::asio::streambuf buffer;
             
             bool newFreq;
-            int m_freq;
+            int m_freq_rx;
+            int m_freq_tx;
+            int m_sourceType;
     };
       
     // Class gs_doppler_correction_impl ...
@@ -87,12 +90,14 @@ namespace gr {
     {
      private:
         pmt::pmt_t out_port_0; 
-      
+        pmt::pmt_t out_port_1; 
+        
         static bool m_exit_requested;
          
         std::string m_ServerName;
         std::string m_ServerPort;
         int m_sourceType;
+        double m_baseFrequency;
       
         gr::thread::thread _thread;
         boost::mutex fp_mutex;
@@ -100,12 +105,12 @@ namespace gr {
      
         void threadTransferDeInit();
      public:
-      gs_doppler_correction_impl(const std::string &ServerName, const std::string &ServerPort, int sourceType);
+      gs_doppler_correction_impl(const std::string &ServerName, const std::string &ServerPort, int sourceType, double baseFrequency);
       ~gs_doppler_correction_impl();
 
       static gs_doppler_correction_impl *mainInstance();
       void gs_doppler_correction_wait();  
-      void message_callback(int freq);
+      void message_callback(int freq_rx, int freq_tx);
       bool stop_callback() {return m_exit_requested;}
       bool stop();       
       

@@ -4,7 +4,7 @@ category: '[gsSDR]'
 
 templates:
   imports: import gsSDR
-  make: gsSDR.gs_doppler_correction(${ServerName}, ${ServerPort}, ${sourceType})
+  make: gsSDR.gs_doppler_correction(${ServerName}, ${ServerPort}, ${sourceType}, ${baseFrequency})
 
 parameters:  
 -   id: ServerName
@@ -16,12 +16,21 @@ parameters:
     dtype: string
     default: '4532'  
 -   id: sourceType
-    label: sourceType
+    label: Source Type
     dtype: int
-    default: 0       
+    default: 0     
+    options: ['0', '1']
+    option_labels: [Gpredic Source, GSJD Source]
+-   id: baseFrequency
+    label: Base Frequency
+    dtype: real
+    default: 0      
 outputs:
 -   domain: message
-    id: out 
+    id: out_rx 
+-   domain: message
+    id: out_tx 
+    optional: true
     
 #  'file_format' specifies the version of the GRC yml format used in the file
 #  and should usually not be changed.
