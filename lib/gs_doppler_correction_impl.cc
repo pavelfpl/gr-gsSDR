@@ -375,7 +375,7 @@ namespace gr {
        out_port_0 = pmt::mp("out_rx");
        message_port_register_out(out_port_0);  
        
-       // Register PDU output port / RX == 0 ...
+       // Register PDU output port / TX == 1 ...
        // --------------------------------------
        out_port_1 = pmt::mp("out_tx");
        message_port_register_out(out_port_1); 
