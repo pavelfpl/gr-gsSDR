@@ -118,7 +118,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    spacecraftId: '4461'
+    spacecraftId: '1'
     stationId: '10'
   states:
     bus_sink: false

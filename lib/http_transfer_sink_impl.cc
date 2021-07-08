@@ -58,6 +58,7 @@
 #include <regex>
 #include <vector>
 #include <iomanip>
+#include <fstream>
 
 #include <sys/time.h>
 
@@ -75,14 +76,14 @@
 
 /*
  https://github.com/boostorg/boost_install/issues/12
-//Stops looking for BoostConfig.cmake e.g. in /opt/boost_1_76_0/lib/cmake/Boost-1.76.0/BoostConfig.cmake 
-cmake -DBoost_NO_BOOST_CMAKE=ON ../
+ Stops looking for BoostConfig.cmake e.g. in /opt/boost_1_76_0/lib/cmake/Boost-1.76.0/BoostConfig.cmake 
+ cmake -DBoost_NO_BOOST_CMAKE=ON ../
 
-export TARGET_BOOST=/opt/boost_1_76_0
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/boost_1_76_0/lib
-cmake -DBoost_NO_BOOST_CMAKE=TRUE -DBoost_NO_SYSTEM_PATHS=TRUE -DBOOST_ROOT:PATHNAME=$TARGET_BOOST -DBoost_LIBRARY_DIRS:FILEPATH=${TARGET_BOOST}/lib ../
+ export TARGET_BOOST=/opt/boost_1_76_0
+ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/boost_1_76_0/lib
+ cmake -DBoost_NO_BOOST_CMAKE=TRUE -DBoost_NO_SYSTEM_PATHS=TRUE -DBOOST_ROOT:PATHNAME=$TARGET_BOOST -DBoost_LIBRARY_DIRS:FILEPATH=${TARGET_BOOST}/lib ../
 
-ldd /home/pavelf/gr3.8/lib/libgnuradio-gsSDR.so
+ ldd /home/pavelf/gr3.8/lib/libgnuradio-gsSDR.so
 */
 
 // #define CONST_BOOST_1_7
@@ -403,6 +404,19 @@ namespace gr {
 
 #ifdef CONST_DEBUG        
         cout<<"DataResult: "<<dataResult<<endl;
+        
+        // Timestamp --> to String conversion ... 
+        // --------------------------------------
+        boost::posix_time::ptime my_posix_time = boost::posix_time::second_clock::local_time();
+        std::string iso_time_string = boost::posix_time::to_iso_extended_string(my_posix_time); 
+        
+        std::ofstream sinkDebugFile("/tmp/http_sink_packet_debug.txt",std::ios::out | std::ios::app);
+        
+        if(sinkDebugFile.is_open()){  
+           sinkDebugFile <<"Timestamp: "<< iso_time_string << std::endl;
+           sinkDebugFile << dataResult << std::endl; 
+           sinkDebugFile.close();
+        }
 #endif
         
         oroot.put("payload", dataResult);

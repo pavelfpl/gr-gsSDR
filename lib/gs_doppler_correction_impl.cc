@@ -39,7 +39,7 @@
 #include "gs_doppler_correction_impl.h"
 
 #define CONST_DEBUG
-#define CONST_CONNECTION_TIMEOUT 60
+#define CONST_CONNECTION_TIMEOUT 30
 #define CONST_READ_TIMEOUT 15
 
 #define CONST_PAYLOAD_LENGTH 1
@@ -180,9 +180,9 @@ namespace gr {
                     }catch(boost::bad_lexical_cast const& e){
                         std::cout << "Conversion error: " << e.what() << "\n";
                     }
-                    
-                    cout << "TX frequency string: "<< prefix_tx << endl;
-
+#ifdef CONST_DEBUG                    
+                    cout << "GSJD TX frequency: "<< prefix_tx << endl;
+#endif
                     // Evaluate RX freq ...
                     prefix_rx = s.substr(0, s.find("F"));
                 }else{
@@ -192,9 +192,9 @@ namespace gr {
                 prefix_rx.erase(0, 1);
                 prefix_rx.erase(0, prefix_rx.find_first_not_of('0'));
                 boost::algorithm::trim(prefix_rx);
-
-                cout << "RX frequency string: "<< prefix_rx << endl;
-                
+#ifdef CONST_DEBUG
+                cout << "GSJD RX frequency: "<< prefix_rx << endl;
+#endif    
                 try{
                     freq_rx = boost::lexical_cast<int>(prefix_rx);
                     if(freq_rx!=m_freq_rx){ m_freq_rx = freq_rx; newFreq = true;}
@@ -210,7 +210,7 @@ namespace gr {
                 s.erase(0, s.find_first_not_of('0'));
                 boost::algorithm::trim(s);
 
-                cout << "TX frequency string: "<< s << endl;
+                // cout << "TX frequency string: "<< s << endl;
                     
                 try{
                     freq_tx = boost::lexical_cast<int>(prefix_tx);
