@@ -126,6 +126,9 @@ namespace gr {
         std::regex reg_2("\\\"(true|false)\\\"");
         std::string json_corection_2 = std::regex_replace(json_corection_1, reg_2, "$1");
         
+        // Erase redundant double quotes ... 
+        boost::erase_all(json_corection_2, "\\\"");
+        
 #ifdef CONST_DEBUG  
         std::cout<<json_corection_2<<std::endl;
 #endif

@@ -45,6 +45,7 @@ sudo ldconfig
 
 ![Source_sink](https://github.com/pavelfpl/gr-gsSDR/blob/master/http_sink_source.png)
 
+![Source_sink](https://github.com/pavelfpl/gr-gsSDR/blob/master/doppler_correction.png)
 ## Screenshots
 
 >`http_transfer_sink` with `gr-satellites` blocks: https://github.com/daniestevez/gr-satellites/

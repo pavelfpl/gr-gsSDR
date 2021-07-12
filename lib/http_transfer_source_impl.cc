@@ -137,11 +137,14 @@ namespace gr {
         std::string json = buf.str();
 
         std::regex reg("\\\"((?:0[xX])?[0-9a-fA-F]+)\\\"");                      
-       // std::regex reg("\\\"([0-9]+\\.{0,1}[0-9]*)\\\"");
+        // std::regex reg("\\\"([0-9]+\\.{0,1}[0-9]*)\\\"");
         std::string json_corection_1 = std::regex_replace(json, reg, "$1");
         std::regex reg_2("\\\"(true|false)\\\"");
         std::string json_corection_2 = std::regex_replace(json_corection_1, reg_2, "$1");
 
+        // Erase redundant double quotes ... 
+        boost::erase_all(json_corection_2, "\\\"");
+        
 #ifdef CONST_DEBUG  
         std::cout<<json_corection_2<<std::endl;
 #endif
