@@ -41,11 +41,24 @@ sudo ldconfig
 
 - `http_transfer_sink` - block provides HTTP (POST) transmission capabilities to the destination server
 - `http_transfer_source` - block gets data using HTTP (GET) from server
+- `gs_doppler_correction` - automatic Doppler correction using GPREDICT or GSJD 
 - `websocket_transfer_sink` - websocket transfer capabilities (obsolete)
 
 ![Source_sink](https://github.com/pavelfpl/gr-gsSDR/blob/master/http_sink_source.png)
+![Doppler](https://github.com/pavelfpl/gr-gsSDR/blob/master/doppler_correction.png)
 
-![Source_sink](https://github.com/pavelfpl/gr-gsSDR/blob/master/doppler_correction.png)
+## Block parameters
+
+- `ServerName` - server name - use IP address or domain name
+- `ServerPort` - server port e.g. 8080
+- `ServerTarget` - server target e.g. /gs/tm
+- `ServerId` - identification of ground station
+- `SpacecraftId` - identification of tracked satellite
+- `Source Type` - Doppler correction source - GPREDICT or GSJD (internal automatic system) - only for `gs_doppler_correction`
+- `Base Frequency` - initial center frequency for Doppler correction (PMT output = base_freq - predict_freq) - only for `gs_doppler_correction` 
+- `UserName` - user name (for future use now)
+- `UserPass` - user password (for future use now)
+
 ## Screenshots
 
 >`http_transfer_sink` with `gr-satellites` blocks: https://github.com/daniestevez/gr-satellites/
