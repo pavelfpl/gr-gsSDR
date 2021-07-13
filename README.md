@@ -49,13 +49,13 @@ sudo ldconfig
 
 ## Block parameters
 
-- `ServerName` - server name - use IP address or domain name
+- `ServerName` - server name - use IP address or domain name (e.g. localhost)
 - `ServerPort` - server port e.g. 8080
 - `ServerTarget` - server target e.g. /gs/tm
-- `ServerId` - identification of ground station
-- `SpacecraftId` - identification of tracked satellite
-- `Source Type` - Doppler correction source - GPREDICT or GSJD (internal automatic system) - only for `gs_doppler_correction`
-- `Base Frequency` - initial center frequency for Doppler correction (PMT output = base_freq - predict_freq) - only for `gs_doppler_correction` 
+- `ServerId` - identification of Ground Station
+- `SpacecraftId` - identification of Tracked Satellite
+- `Source Type` - Doppler correction source - GPREDICT or GSJD (internal automatic correction system) - parameter only for `gs_doppler_correction`
+- `Base Frequency` - initial center frequency for Doppler correction (PMT output = base_freq - predict_freq), GSJD supports both RX and TX direction - parameter only for `gs_doppler_correction` 
 - `UserName` - user name (for future use now)
 - `UserPass` - user password (for future use now)
 
