@@ -59,6 +59,15 @@ sudo ldconfig
 - `UserName` - user name (for future use now)
 - `UserPass` - user password (for future use now)
 
+## Notes
+> Add arguments to gnuradio python generated script
+```
+self.port = port = '8080'
+        
+if len(sys.argv) >= 2:
+   print('Argv[1] provided ...')
+   port = sys.argv[1] 
+```
 ## Screenshots
 
 >`http_transfer_sink` with `gr-satellites` blocks: https://github.com/daniestevez/gr-satellites/
