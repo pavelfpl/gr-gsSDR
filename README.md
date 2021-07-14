@@ -60,7 +60,7 @@ sudo ldconfig
 - `UserPass` - user password (for future use now)
 
 ## Notes
-> Add arguments to gnuradio python generated script
+> Add arguments to GnuRadio python generated script
 ```
 self.port = port = '8080'
         
@@ -68,6 +68,36 @@ if len(sys.argv) >= 2:
    print('Argv[1] provided ...')
    port = sys.argv[1] 
 ```
+> Running GnuRadio from C program (using fork)
+
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+#include <time.h>
+
+int main(int argc, char const *argv[]){
+
+      char arg1[20];
+      snprintf(arg1, sizeof(arg1), "%d", 8080);
+      
+      pid_t pid = fork();
+      if(!pid) { // child
+         execlp("python3", "python3", "lucky7_test.py",arg1, (const char*)0);
+         // Doesn't return (check error maybe)
+      }
+
+      printf("Parent - waiting for given period...\n");
+      sleep(30);
+      printf("Cleaning resources - START \n");
+      kill(pid, SIGTERM); // SIGINT
+      sleep(1);
+      printf("Cleaning resources - STOP \n");
+      return 0;
+}
+```
+
 ## Screenshots
 
 >`http_transfer_sink` with `gr-satellites` blocks: https://github.com/daniestevez/gr-satellites/
