@@ -97,7 +97,12 @@ int main(int argc, char const *argv[]){
       return 0;
 }
 ```
-
+> Add GnuRadio runtime variables to path
+```
+Add this line (with modified path) to: .bashrc
+source /path/to/setup_env.sh 
+e.g source $HOME/gr-3.8/setup_env.sh 
+```
 ## Screenshots
 
 >`http_transfer_sink` with `gr-satellites` blocks: https://github.com/daniestevez/gr-satellites/
