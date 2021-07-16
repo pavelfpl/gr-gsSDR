@@ -105,7 +105,7 @@ e.g source $HOME/gr-3.8/setup_env.sh
 ```
 
 > Design development cycle
-![Dev cycle](https://github.com/pavelfpl/gr-gsSDR/blob/master/doppler_correction.png)
+![Dev cycle](https://github.com/pavelfpl/gr-gsSDR/blob/master/flowchart_design.png)
 
 ## Screenshots
 
