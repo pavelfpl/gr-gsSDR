@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="flowchart_design.svg"
+   inkscape:export-filename="/home/pavelf/flowchart_design.svg.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <defs
+     id="defs2">
+    <marker
+       inkscape:stockid="TriangleOutL"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="TriangleOutL"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4749"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         transform="scale(0.8)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="357.77832"
+     inkscape:cy="904.03691"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1135"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid10" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       id="rect12"
+       width="60.854164"
+       height="31.750002"
+       x="15.875"
+       y="24.479164"
+       style="fill:none;stroke:#000000;stroke-width:0.47958317;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="17.386904"
+       y="30.526785"
+       id="text4540"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan4538"
+         x="17.386904"
+         y="30.526785"
+         style="stroke-width:0.26458332">Simulate your</tspan><tspan
+         sodipodi:role="line"
+         x="17.386904"
+         y="37.58234"
+         style="stroke-width:0.26458332"
+         id="tspan4542">flowchart in</tspan><tspan
+         sodipodi:role="line"
+         x="17.386904"
+         y="44.637897"
+         style="fill:#ff0000;stroke-width:0.26458332"
+         id="tspan4544">GnuradioCompanion</tspan><tspan
+         sodipodi:role="line"
+         x="17.386904"
+         y="51.693451"
+         style="stroke-width:0.26458332"
+         id="tspan4546">(QT GUI)</tspan></text>
+    <rect
+       id="rect12-3"
+       width="71.437492"
+       height="31.750002"
+       x="116.41666"
+       y="24.479166"
+       style="fill:none;stroke:#000000;stroke-width:0.51961523;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="117.73959"
+       y="30.715776"
+       id="text4540-6"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="117.73959"
+         y="30.715776"
+         style="stroke-width:0.26458332"
+         id="tspan4546-5">Create PYTHON script</tspan><tspan
+         sodipodi:role="line"
+         x="117.73959"
+         y="37.771332"
+         style="stroke-width:0.26458332"
+         id="tspan4587">without GUI</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="118.49551"
+       y="42.811012"
+       id="text4591"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan4589"
+         x="118.49551"
+         y="42.811012"
+         style="stroke-width:0.26458332">Go to flowchart options, </tspan><tspan
+         sodipodi:role="line"
+         x="118.49551"
+         y="48.10268"
+         style="stroke-width:0.26458332"
+         id="tspan4593">generate options (<tspan
+   style="fill:#ff0000"
+   id="tspan4601">No GUI</tspan>),</tspan><tspan
+         sodipodi:role="line"
+         x="118.49551"
+         y="53.394344"
+         style="stroke-width:0.26458332"
+         id="tspan4595">run options (<tspan
+   style="fill:#ff0000"
+   id="tspan4603">Run to completion</tspan>)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="182.56248"
+       y="56.229164"
+       id="text4599"><tspan
+         sodipodi:role="line"
+         id="tspan4597"
+         x="182.56248"
+         y="59.97467"
+         style="stroke-width:0.26458332" /></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.05998659;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutL)"
+       d="M 76.729166,40.354168 H 111.125"
+       id="path4605"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.08604899;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1057"
+       width="182.5625"
+       height="42.333328"
+       x="10.583333"
+       y="19.1875"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+  </g>
+</svg>

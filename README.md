@@ -103,6 +103,10 @@ Add this line (with modified path) to: .bashrc
 source /path/to/setup_env.sh 
 e.g source $HOME/gr-3.8/setup_env.sh 
 ```
+
+> Design development cycle
+![Dev cycle](https://github.com/pavelfpl/gr-gsSDR/blob/master/doppler_correction.png)
+
 ## Screenshots
 
 >`http_transfer_sink` with `gr-satellites` blocks: https://github.com/daniestevez/gr-satellites/
