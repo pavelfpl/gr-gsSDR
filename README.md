@@ -11,7 +11,7 @@ GNURadio blocks for distributed pico **satellites Ground Station**, written in *
 `sudo apt install libssl-dev`
 
 ## Building
->This module requires **Gnuradio 3.8.x** and `Boost`.
+>This module requires **Gnuradio 3.8.x** and `Boost`. Newer Linux distribution is needed (e.g Debian sid, bullseye etc.) 
 >Build is pretty standard:
 ```
 mkdir build
@@ -23,7 +23,7 @@ sudo ldconfig
 ```
 ## Building local
 
->**Gnuradio 3.8.x** is installed to `$HOME/gr3.8` using `PyBombs`:
+>**Gnuradio 3.8.x** is installed to `$HOME/gr3.8` using `PyBombs` (https://github.com/gnuradio/pybombs#pybombs):
 
 ```
 cd gr3.8
@@ -107,8 +107,11 @@ e.g source $HOME/gr-3.8/setup_env.sh
 > Design development cycle  
 ![Dev cycle](https://github.com/pavelfpl/gr-gsSDR/blob/master/flowchart_design.png)
 
-## Screenshots
+## Example GnuRadio flowcharts
 
->`http_transfer_sink` with `gr-satellites` blocks: https://github.com/daniestevez/gr-satellites/
+Intended blocks can be used together with with `gr-satellites` blocks: https://github.com/daniestevez/gr-satellites/   
+`gr-satellites` install documentantion: https://gr-satellites.readthedocs.io/en/latest/
+
+>`http_transfer_sink` and `http_transfer_source` basic connection. Reading already acquired samples from WAV source. 
 
 ![Example Source](https://github.com/pavelfpl/gr-gsSDR/blob/master/examples/http_transfer_sink_example.png)
