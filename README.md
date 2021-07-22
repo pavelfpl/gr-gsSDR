@@ -115,3 +115,15 @@ Intended blocks can be used together with with `gr-satellites` blocks: https://g
 >`http_transfer_sink` and `http_transfer_source` basic connection. Reading already acquired samples from WAV source. 
 
 ![Example Source](https://github.com/pavelfpl/gr-gsSDR/blob/master/examples/http_transfer_sink_example.png)
+
+> Online capture of `LUCKY 7` pico satellite using USRP B210. Doppler correction is provided by `gs_doppler_correction` block and signal is digitally shifted. Base frequency of SDR is set fixed. (`grc_usrp/gr_lucky_test.grc`)  
+
+![Lucky 7](https://github.com/pavelfpl/gr-gsSDR/blob/master/grc_usrp/gr_lucky_test.png)
+
+> Online capture of `VZLUSAT 1` pico satellite using USRP B210. (`grc_usrp/gr_vzlu_test.grc`)  
+
+![Lucky 7](https://github.com/pavelfpl/gr-gsSDR/blob/master/grc_usrp/gr_vzlu_test.png)
+
+> Online capture of `GRBAlpha` pico satellite using USRP B210. (`grc_usrp/gr_grbalpha_test.grc`)  
+
+![Lucky 7](https://github.com/pavelfpl/gr-gsSDR/blob/master/grc_usrp/gr_grbalpha_test.png)
