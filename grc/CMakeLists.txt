@@ -22,5 +22,7 @@ install(FILES
     gsSDR_websocket_transfer_sink.block.yml
     gsSDR_http_transfer_sink.block.yml
     gsSDR_http_transfer_source.block.yml
-    gsSDR_gs_doppler_correction.block.yml DESTINATION share/gnuradio/grc/blocks
+    gsSDR_gs_doppler_correction.block.yml
+    gsSDR_build_packet_1.block.yml
+    gsSDR_afsk_basic.block.yml DESTINATION share/gnuradio/grc/blocks
 )

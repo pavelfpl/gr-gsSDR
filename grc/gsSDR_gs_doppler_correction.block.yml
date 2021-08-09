@@ -28,6 +28,7 @@ parameters:
 outputs:
 -   domain: message
     id: out_rx 
+    optional: true
 -   domain: message
     id: out_tx 
     optional: true

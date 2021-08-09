@@ -181,7 +181,7 @@ namespace gr {
                         std::cout << "Conversion error: " << e.what() << "\n";
                     }
 #ifdef CONST_DEBUG                    
-                    cout << "GSJD TX frequency: "<< prefix_tx << endl;
+                    // cout << "GSJD TX frequency: "<< prefix_tx << endl;
 #endif
                     // Evaluate RX freq ...
                     prefix_rx = s.substr(0, s.find("F"));
@@ -193,7 +193,7 @@ namespace gr {
                 prefix_rx.erase(0, prefix_rx.find_first_not_of('0'));
                 boost::algorithm::trim(prefix_rx);
 #ifdef CONST_DEBUG
-                cout << "GSJD RX frequency: "<< prefix_rx << endl;
+                // cout << "GSJD RX frequency: "<< prefix_rx << endl;
 #endif    
                 try{
                     freq_rx = boost::lexical_cast<int>(prefix_rx);
@@ -437,13 +437,16 @@ endl;
         // vector<float> pmt_payload_tx(CONST_PAYLOAD_LENGTH);
         
         float freq_rx_comp =  m_baseFrequency - float(freq_rx);
-        float freq_tx_comp =  m_baseFrequency - float(freq_tx);
+        float freq_tx_comp =  -1*m_baseFrequency + float(freq_tx);
         
         pmt::pmt_t meta_rx = pmt::make_dict();
         meta_rx = pmt::dict_add(meta_rx, pmt::string_to_symbol("freq"), pmt::from_double(freq_rx_comp));
         
         pmt::pmt_t meta_tx = pmt::make_dict();
         meta_tx = pmt::dict_add(meta_tx, pmt::string_to_symbol("freq"), pmt::from_double(freq_tx_comp));
+        
+        cout << "GSJD RX frequency: "<< freq_rx << " and correction is: "<<freq_rx_comp<<endl;
+        cout << "GSJD TX frequency: "<< freq_tx << " and correction is: "<<freq_tx_comp<<endl;
         
         // pmt_payload_rx[0] = freq_rx_comp; 
         // pmt_payload_tx[0] = freq_tx_comp;  

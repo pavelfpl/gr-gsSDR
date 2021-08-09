@@ -32,4 +32,5 @@ except ImportError:
     pass
 
 # import any pure python here
+from .afsk_basic import afsk_basic
 #

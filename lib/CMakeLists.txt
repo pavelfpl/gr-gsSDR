@@ -29,6 +29,7 @@ list(APPEND gsSDR_sources
     http_transfer_sink_impl.cc
     http_transfer_source_impl.cc
     gs_doppler_correction_impl.cc
+    build_packet_1_impl.cc
 )
 
 set(gsSDR_sources "${gsSDR_sources}" PARENT_SCOPE)
@@ -38,7 +39,7 @@ if(NOT gsSDR_sources)
 endif(NOT gsSDR_sources)
 
 add_library(gnuradio-gsSDR SHARED ${gsSDR_sources})
-target_link_libraries(gnuradio-gsSDR gnuradio::gnuradio-runtime ssl pthread crypto)
+target_link_libraries(gnuradio-gsSDR gnuradio::gnuradio-runtime  gnuradio::gnuradio-blocks gnuradio::gnuradio-fft gnuradio::gnuradio-filter gnuradio::gnuradio-digital gnuradio::gnuradio-analog ssl pthread crypto)
 target_include_directories(gnuradio-gsSDR
     PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
     PUBLIC $<INSTALL_INTERFACE:include>

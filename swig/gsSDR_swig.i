@@ -12,6 +12,7 @@
 #include "gsSDR/http_transfer_sink.h"
 #include "gsSDR/http_transfer_source.h"
 #include "gsSDR/gs_doppler_correction.h"
+#include "gsSDR/build_packet_1.h"
 %}
 
 %include "gsSDR/websocket_transfer_sink.h"
@@ -22,3 +23,5 @@ GR_SWIG_BLOCK_MAGIC2(gsSDR, http_transfer_sink);
 GR_SWIG_BLOCK_MAGIC2(gsSDR, http_transfer_source);
 %include "gsSDR/gs_doppler_correction.h"
 GR_SWIG_BLOCK_MAGIC2(gsSDR, gs_doppler_correction);
+%include "gsSDR/build_packet_1.h"
+GR_SWIG_BLOCK_MAGIC2(gsSDR, build_packet_1);

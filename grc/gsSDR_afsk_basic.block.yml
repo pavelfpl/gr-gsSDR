@@ -1,0 +1,37 @@
+id: gsSDR_afsk_basic
+label: afsk_basic
+category: '[gsSDR]'
+
+templates:
+  imports: import gsSDR
+  make: gsSDR.afsk_basic(${samp_rate}, ${preamble_len_ms}, ${mark_freq}, ${space_freq}, ${baud_rate})
+
+parameters:
+-   id: samp_rate
+    label: Sample Rate
+    dtype: int
+    default: 0  
+-   id: preamble_len_ms
+    label: Preamble Len (ms)
+    dtype: float
+    default: 0.0  
+-   id: mark_freq
+    label: Mark Frequency (Hz)
+    dtype: int
+    default: 2200  
+-   id: space_freq
+    label: Space Frequency  (Hz)
+    dtype: int
+    default: 1200      
+-   id: baud_rate
+    label: Baud Rate
+    dtype: int
+    default: 1200  
+inputs:
+-   domain: message
+    id: in 
+outputs:    
+-   label: out
+    dtype: float
+
+file_format: 1

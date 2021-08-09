@@ -26,5 +26,6 @@ install(FILES
     websocket_transfer_sink.h
     http_transfer_sink.h
     http_transfer_source.h
-    gs_doppler_correction.h DESTINATION include/gsSDR
+    gs_doppler_correction.h
+    build_packet_1.h DESTINATION include/gsSDR
 )
