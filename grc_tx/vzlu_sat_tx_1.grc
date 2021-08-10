@@ -10,7 +10,7 @@ options:
     gen_linking: dynamic
     generate_options: qt_gui
     hier_block_src_path: '.:'
-    id: vzlu_sat_tx_0
+    id: vzlu_sat_tx_1
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -21,7 +21,7 @@ options:
     run_options: prompt
     sizing_mode: fixed
     thread_safe_setters: ''
-    title: vzlu_sat_tx_0
+    title: vzlu_sat_tx_1
     window_size: ''
   states:
     bus_sink: false
@@ -36,12 +36,12 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: 437.525e6
+    value: 437.240e6
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [16, 300.0]
+    coordinate: [16, 308.0]
     rotation: 0
     state: true
 - name: gain_set
@@ -62,45 +62,33 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [16, 428.0]
+    coordinate: [16, 372.0]
     rotation: 0
     state: enabled
 - name: samp_rate
   id: variable
   parameters:
     comment: ''
-    value: samp_rate_audio*4
+    value: samp_rate_audio*16
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [16, 236.0]
+    coordinate: [16, 164.0]
     rotation: 0
     state: enabled
 - name: samp_rate_audio
   id: variable
   parameters:
     comment: ''
-    value: '48000'
+    value: '12000'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [16, 172.0]
+    coordinate: [16, 100.0]
     rotation: 0
     state: enabled
-- name: variable_0
-  id: variable
-  parameters:
-    comment: ''
-    value: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [16, 364.0]
-    rotation: 0
-    state: true
 - name: analog_nbfm_tx_0
   id: analog_nbfm_tx
   parameters:
@@ -118,7 +106,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [704, 12.0]
+    coordinate: [832, 12.0]
     rotation: 0
     state: true
 - name: analog_sig_source_x_0
@@ -140,22 +128,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [944, 140.0]
+    coordinate: [840, 292.0]
     rotation: 0
     state: enabled
-- name: blocks_message_debug_0
-  id: blocks_message_debug
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [512, 176.0]
-    rotation: 0
-    state: disabled
 - name: blocks_message_debug_1
   id: blocks_message_debug
   parameters:
@@ -166,7 +141,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [968, 440.0]
+    coordinate: [936, 496.0]
     rotation: 0
     state: enabled
 - name: blocks_message_strobe_0
@@ -178,12 +153,12 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     msg: pmt.intern("TEST")
-    period: '1000'
+    period: '3000'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [16, 108.0]
+    coordinate: [16, 236.0]
     rotation: 0
     state: true
 - name: blocks_multiply_xx_0
@@ -201,9 +176,26 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1152.0, 256]
+    coordinate: [1104.0, 424]
     rotation: 270
     state: enabled
+- name: blocks_pdu_to_tagged_stream_0
+  id: blocks_pdu_to_tagged_stream
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '2560000'
+    minoutbuf: '2560000'
+    tag: packet_len
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [528, 44.0]
+    rotation: 0
+    state: true
 - name: blocks_tag_debug_0
   id: blocks_tag_debug
   parameters:
@@ -220,7 +212,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1100.0, 552]
+    coordinate: [1204.0, 424]
     rotation: 270
     state: disabled
 - name: blocks_tagged_stream_multiply_length_0
@@ -228,7 +220,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    c: '4'
+    c: '16'
     comment: ''
     lengthtagname: packet_len
     maxoutbuf: '0'
@@ -239,7 +231,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1016, 8.0]
+    coordinate: [1120, 16.0]
     rotation: 0
     state: true
 - name: blocks_wavfile_sink_0
@@ -256,11 +248,11 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [720, 212.0]
+    coordinate: [832, 204.0]
     rotation: 0
-    state: enabled
-- name: gsSDR_afsk_basic_0
-  id: gsSDR_afsk_basic
+    state: disabled
+- name: gsSDR_afsk_basic_pdu_0
+  id: gsSDR_afsk_basic_pdu
   parameters:
     affinity: ''
     alias: ''
@@ -272,12 +264,11 @@ blocks:
     preamble_len_ms: '0.0'
     samp_rate: samp_rate_audio
     space_freq: '1800'
-    stream_tag: packet_len
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [448, 36.0]
+    coordinate: [400, 180.0]
     rotation: 0
     state: true
 - name: gsSDR_build_packet_1_0
@@ -298,7 +289,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [192, 76.0]
+    coordinate: [224, 28.0]
     rotation: 0
     state: enabled
 - name: gsSDR_gs_doppler_correction_0
@@ -317,7 +308,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [672, 396.0]
+    coordinate: [592, 452.0]
     rotation: 0
     state: enabled
 - name: low_pass_filter_0
@@ -341,7 +332,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1300.0, 88]
+    coordinate: [1332.0, 128]
     rotation: 270
     state: true
 - name: qtgui_freq_sink_x_0
@@ -421,9 +412,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1264, 368.0]
-    rotation: 0
-    state: enabled
+    coordinate: [1384.0, 416]
+    rotation: 270
+    state: true
 - name: qtgui_time_sink_x_0
   id: qtgui_time_sink_x
   parameters:
@@ -495,9 +486,9 @@ blocks:
     tr_chan: '0'
     tr_delay: '0'
     tr_level: '0.0'
-    tr_mode: qtgui.TRIG_MODE_NORM
+    tr_mode: qtgui.TRIG_MODE_TAG
     tr_slope: qtgui.TRIG_SLOPE_POS
-    tr_tag: '""'
+    tr_tag: packet_len
     type: float
     update_time: '0.10'
     width1: '1'
@@ -518,8 +509,105 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [744, 132.0]
+    coordinate: [832, 124.0]
     rotation: 0
+    state: enabled
+- name: qtgui_time_sink_x_0_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '""'
+    nconnections: '1'
+    size: 32768*4
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_TAG
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: packet_len
+    type: complex
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '1'
+    ymin: '-1'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1292.0, 424]
+    rotation: 270
     state: enabled
 - name: uhd_usrp_sink_0
   id: uhd_usrp_sink
@@ -794,7 +882,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1248, 476.0]
+    coordinate: [1192, 596.0]
     rotation: 0
     state: true
 
@@ -802,18 +890,19 @@ connections:
 - [analog_nbfm_tx_0, '0', blocks_tagged_stream_multiply_length_0, '0']
 - [analog_sig_source_x_0, '0', blocks_multiply_xx_0, '0']
 - [blocks_message_strobe_0, strobe, gsSDR_build_packet_1_0, pdus]
-- [blocks_multiply_xx_0, '0', blocks_tag_debug_0, '0']
-- [blocks_multiply_xx_0, '0', qtgui_freq_sink_x_0, '0']
 - [blocks_multiply_xx_0, '0', uhd_usrp_sink_0, '0']
+- [blocks_pdu_to_tagged_stream_0, '0', analog_nbfm_tx_0, '0']
+- [blocks_pdu_to_tagged_stream_0, '0', blocks_wavfile_sink_0, '0']
+- [blocks_pdu_to_tagged_stream_0, '0', qtgui_time_sink_x_0, '0']
 - [blocks_tagged_stream_multiply_length_0, '0', low_pass_filter_0, '0']
-- [gsSDR_afsk_basic_0, '0', analog_nbfm_tx_0, '0']
-- [gsSDR_afsk_basic_0, '0', blocks_wavfile_sink_0, '0']
-- [gsSDR_afsk_basic_0, '0', qtgui_time_sink_x_0, '0']
-- [gsSDR_build_packet_1_0, out_pdus, blocks_message_debug_0, print_pdu]
-- [gsSDR_build_packet_1_0, out_pdus, gsSDR_afsk_basic_0, in]
-- [gsSDR_gs_doppler_correction_0, out_tx, analog_sig_source_x_0, freq]
+- [gsSDR_afsk_basic_pdu_0, pdus, blocks_pdu_to_tagged_stream_0, pdus]
+- [gsSDR_build_packet_1_0, out_pdus, gsSDR_afsk_basic_pdu_0, in]
+- [gsSDR_gs_doppler_correction_0, out_rx, analog_sig_source_x_0, freq]
 - [gsSDR_gs_doppler_correction_0, out_tx, blocks_message_debug_1, print]
 - [low_pass_filter_0, '0', blocks_multiply_xx_0, '1']
+- [low_pass_filter_0, '0', blocks_tag_debug_0, '0']
+- [low_pass_filter_0, '0', qtgui_freq_sink_x_0, '0']
+- [low_pass_filter_0, '0', qtgui_time_sink_x_0_0, '0']
 - [low_pass_filter_0, '0', uhd_usrp_sink_0, '0']
 
 metadata:

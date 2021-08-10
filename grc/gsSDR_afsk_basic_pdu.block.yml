@@ -1,10 +1,10 @@
-id: gsSDR_afsk_basic
-label: afsk_basic
+id: gsSDR_afsk_basic_pdu
+label: afsk_basic_pdu
 category: '[gsSDR]'
 
 templates:
   imports: import gsSDR
-  make: gsSDR.afsk_basic(${samp_rate}, ${preamble_len_ms}, ${mark_freq}, ${space_freq}, ${baud_rate}, ${stream_tag})
+  make: gsSDR.afsk_basic_pdu(${samp_rate}, ${preamble_len_ms}, ${mark_freq}, ${space_freq}, ${baud_rate})
 
 parameters:
 -   id: samp_rate
@@ -27,15 +27,10 @@ parameters:
     label: Baud Rate
     dtype: int
     default: 1200
--   id: stream_tag    
-    label: Stream Tag Name
-    dtype: string
-    default: "stream_tag" 
 inputs:
 -   domain: message
     id: in 
 outputs:    
--   label: out
-    dtype: float
-
+-   domain: message
+    id: pdus 
 file_format: 1

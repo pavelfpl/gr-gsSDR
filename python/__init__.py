@@ -33,4 +33,5 @@ except ImportError:
 
 # import any pure python here
 from .afsk_basic import afsk_basic
+from .afsk_basic_pdu import afsk_basic_pdu
 #

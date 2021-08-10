@@ -24,5 +24,6 @@ install(FILES
     gsSDR_http_transfer_source.block.yml
     gsSDR_gs_doppler_correction.block.yml
     gsSDR_build_packet_1.block.yml
-    gsSDR_afsk_basic.block.yml DESTINATION share/gnuradio/grc/blocks
+    gsSDR_afsk_basic.block.yml
+    gsSDR_afsk_basic_pdu.block.yml DESTINATION share/gnuradio/grc/blocks
 )

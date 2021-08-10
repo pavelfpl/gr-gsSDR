@@ -32,7 +32,8 @@ endif()
 GR_PYTHON_INSTALL(
     FILES
     __init__.py
-    afsk_basic.py DESTINATION ${GR_PYTHON_DIR}/gsSDR
+    afsk_basic.py
+    afsk_basic_pdu.py DESTINATION ${GR_PYTHON_DIR}/gsSDR
 )
 
 ########################################################################
