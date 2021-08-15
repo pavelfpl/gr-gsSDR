@@ -256,7 +256,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [720, 212.0]
+    coordinate: [720, 220.0]
     rotation: 0
     state: enabled
 - name: gsSDR_afsk_basic_0
@@ -320,6 +320,28 @@ blocks:
     coordinate: [672, 396.0]
     rotation: 0
     state: enabled
+- name: gsSDR_http_transfer_source_0
+  id: gsSDR_http_transfer_source
+  parameters:
+    ServerName: localhost
+    ServerPort: '8080'
+    ServerTarget: /gs/tc
+    UserName: ''
+    UserPass: ''
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    spacecraftId: '0'
+    stationId: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [192, 220.0]
+    rotation: 0
+    state: disabled
 - name: low_pass_filter_0
   id: low_pass_filter
   parameters:
@@ -778,6 +800,7 @@ blocks:
     sd_spec6: ''
     sd_spec7: ''
     show_lo_controls: 'False'
+    start_time: '-1.0'
     stream_args: ''
     stream_chans: '[]'
     sync: sync
@@ -794,7 +817,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1248, 476.0]
+    coordinate: [1264, 476.0]
     rotation: 0
     state: true
 
@@ -813,8 +836,8 @@ connections:
 - [gsSDR_build_packet_1_0, out_pdus, gsSDR_afsk_basic_0, in]
 - [gsSDR_gs_doppler_correction_0, out_tx, analog_sig_source_x_0, freq]
 - [gsSDR_gs_doppler_correction_0, out_tx, blocks_message_debug_1, print]
+- [gsSDR_http_transfer_source_0, out, gsSDR_afsk_basic_0, in]
 - [low_pass_filter_0, '0', blocks_multiply_xx_0, '1']
-- [low_pass_filter_0, '0', uhd_usrp_sink_0, '0']
 
 metadata:
   file_format: 1

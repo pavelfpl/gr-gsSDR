@@ -27,7 +27,7 @@ options:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 8]
+    coordinate: [16, 12.0]
     rotation: 0
     state: enabled
 
@@ -164,7 +164,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [768, 252.0]
+    coordinate: [752, 252.0]
     rotation: 0
     state: disabled
 - name: gsSDR_afsk_basic_0
@@ -386,7 +386,7 @@ blocks:
     tr_level: '0.0'
     tr_mode: qtgui.TRIG_MODE_TAG
     tr_slope: qtgui.TRIG_SLOPE_POS
-    tr_tag: '""'
+    tr_tag: packet_len
     type: float
     update_time: '0.10'
     width1: '1'
@@ -409,7 +409,7 @@ blocks:
     bus_structure: null
     coordinate: [768, 172.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: qtgui_time_sink_x_0_0
   id: qtgui_time_sink_x
   parameters:

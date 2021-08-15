@@ -126,8 +126,11 @@ class afsk_basic(gr.sync_block):
             if self.outbox.empty():
                 # TODO: This is a bit of a hack to work around the ALSA Audio
                 #       Sink being unhappy with underflows ...
-                out[0:] = 0
-                return len(out)
+                if(len(self.stream_tag)==0):
+                    out[0:] = 0
+                    return len(out)
+                else:
+                    return 0
 
             self.output_buffer = self.ax25_to_fsk(self.outbox.get())
             self.opb_idx = 0
@@ -169,10 +172,11 @@ class afsk_basic(gr.sync_block):
         if self.opb_idx >= len(self.output_buffer):
             self.output_buffer = None
 
-        # Fill the remaining buffer with zeros. Hack to help the ALSA audio sink ...
-        # be happy.
-        if idx < len(out):
-            out[idx:] = 0
-
-        return len(out)
-
+        if(len(self.stream_tag)==0):
+            # Fill the remaining buffer with zeros. Hack to help the ALSA audio sink ...
+            # be happy.
+            if idx < len(out):
+                out[idx:] = 0
+            return len(out)
+        else:
+            return idx
