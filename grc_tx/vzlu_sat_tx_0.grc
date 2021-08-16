@@ -339,7 +339,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [192, 220.0]
+    coordinate: [192, 212.0]
     rotation: 0
     state: disabled
 - name: low_pass_filter_0
@@ -800,7 +800,6 @@ blocks:
     sd_spec6: ''
     sd_spec7: ''
     show_lo_controls: 'False'
-    start_time: '-1.0'
     stream_args: ''
     stream_chans: '[]'
     sync: sync
@@ -817,7 +816,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1264, 476.0]
+    coordinate: [1264, 484.0]
     rotation: 0
     state: true
 
