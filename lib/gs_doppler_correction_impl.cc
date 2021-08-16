@@ -437,7 +437,7 @@ endl;
         // vector<float> pmt_payload_tx(CONST_PAYLOAD_LENGTH);
         
         float freq_rx_comp =  m_baseFrequency - float(freq_rx);
-        float freq_tx_comp =  -1*m_baseFrequency + float(freq_tx);
+        float freq_tx_comp =  m_baseFrequency - float(freq_tx);
         
         pmt::pmt_t meta_rx = pmt::make_dict();
         meta_rx = pmt::dict_add(meta_rx, pmt::string_to_symbol("freq"), pmt::from_double(freq_rx_comp));
