@@ -27,5 +27,7 @@ install(FILES
     http_transfer_sink.h
     http_transfer_source.h
     gs_doppler_correction.h
-    build_packet_1.h DESTINATION include/gsSDR
+    build_packet_1.h
+    packed_to_unpacked.h
+    usrp_gain_control.h DESTINATION include/gsSDR
 )

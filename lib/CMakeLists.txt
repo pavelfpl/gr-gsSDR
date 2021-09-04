@@ -30,6 +30,8 @@ list(APPEND gsSDR_sources
     http_transfer_source_impl.cc
     gs_doppler_correction_impl.cc
     build_packet_1_impl.cc
+    packed_to_unpacked_impl.cc
+    usrp_gain_control_impl.cc
 )
 
 set(gsSDR_sources "${gsSDR_sources}" PARENT_SCOPE)

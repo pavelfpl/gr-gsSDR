@@ -76,6 +76,19 @@ blocks:
     coordinate: [728, 60.0]
     rotation: 0
     state: true
+- name: blocks_message_debug_0
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [608, 368.0]
+    rotation: 0
+    state: true
 - name: blocks_message_strobe_0
   id: blocks_message_strobe
   parameters:
@@ -209,6 +222,21 @@ blocks:
     coordinate: [200, 76.0]
     rotation: 0
     state: enabled
+- name: gsSDR_packed_to_unpacked_0
+  id: gsSDR_packed_to_unpacked
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [320, 280.0]
+    rotation: 0
+    state: bypassed
 - name: low_pass_filter_0
   id: low_pass_filter
   parameters:
@@ -518,7 +546,9 @@ connections:
 - [gsSDR_afsk_basic_0, '0', analog_nbfm_tx_0, '0']
 - [gsSDR_afsk_basic_0, '0', blocks_wavfile_sink_0, '0']
 - [gsSDR_afsk_basic_0, '0', qtgui_time_sink_x_0, '0']
-- [gsSDR_build_packet_1_0, out_pdus, gsSDR_afsk_basic_0, in]
+- [gsSDR_build_packet_1_0, out_pdus, gsSDR_packed_to_unpacked_0, pdus]
+- [gsSDR_packed_to_unpacked_0, pdus_out, blocks_message_debug_0, print]
+- [gsSDR_packed_to_unpacked_0, pdus_out, gsSDR_afsk_basic_0, in]
 - [low_pass_filter_0, '0', blocks_throttle_0, '0']
 
 metadata:
