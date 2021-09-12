@@ -130,7 +130,25 @@ namespace gr {
 
         if(_thread.joinable()) _thread.join();
     } 
-
+    
+    // setGainOn - callback ...
+    void usrp_gain_control_impl::set_gain_on(int gain_on){
+          gr::thread::scoped_lock lock(fp_mutex);  
+          m_gain_on = gain_on;
+    }
+    
+    // setGainOff - callback ...
+    void usrp_gain_control_impl::set_gain_off(int gain_off){
+          gr::thread::scoped_lock lock(fp_mutex);  
+          m_gain_off = gain_off;
+    }
+    
+    // setTimerWait - callback ...
+    void usrp_gain_control_impl::set_timer_wait(int timer_wait){
+          gr::thread::scoped_lock lock(fp_mutex);  
+          m_timer_wait = timer_wait;
+    }
+    
     // usrp_gain_control_wait - public function ...
     void usrp_gain_control_impl::usrp_gain_control_wait(){
         

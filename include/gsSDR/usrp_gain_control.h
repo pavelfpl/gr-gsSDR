@@ -50,6 +50,11 @@ namespace gr {
        * creating new instances.
        */
       static sptr make(float gain_on,float gain_off,int timer_wait);
+      
+      virtual void set_gain_on(int gain_on)=0;
+      virtual void set_gain_off(int gain_off)=0;
+      virtual void set_timer_wait(int timer_wait)=0;
+
     };
 
   } // namespace gsSDR

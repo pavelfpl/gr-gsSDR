@@ -5,7 +5,10 @@ category: '[gsSDR]'
 templates:
   imports: import gsSDR
   make: gsSDR.usrp_gain_control(${gain_on}, ${gain_off}, ${timer_wait})
-
+  callbacks:
+    - set_gain_on(${gain_on})
+    - set_gain_off(${gain_off})
+    - set_timer_wait(${timer_wait})
 parameters:
 -   id: gain_on
     label: Gain ON

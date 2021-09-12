@@ -51,6 +51,10 @@ namespace gr {
       gr::thread::thread _thread;
       boost::mutex fp_mutex;
       
+      void set_gain_on(int gain_on);
+      void set_gain_off(int gain_off);
+      void set_timer_wait(int timer_wait);
+      
       bool stop();   
       void usrp_gain_control_wait();
       void packet_handler(pmt::pmt_t msg);
